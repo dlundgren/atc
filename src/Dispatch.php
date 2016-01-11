@@ -113,9 +113,9 @@ class Dispatch
 		$response = null;
 		$action  = $this->action;
 		try {
-			$events && $this->events->dispatch(DispatchEvents::PRE_DISPATCH, new PreDispatchEvent($this->request, $action));
+			$events && $this->events->dispatch(DispatchEvents::PRE_DISPATCH, new PreDispatchEvent($request, $action));
 			$response = $action($request);
-			$events && $this->events->dispatch(DispatchEvents::POST_DISPATCH, new PostDispatchEvent($this->request, $action, $response));
+			$events && $this->events->dispatch(DispatchEvents::POST_DISPATCH, new PostDispatchEvent($request, $action, $response));
 		} catch(ExitDispatchException $e) { // Break out of ATC
 			throw $e;
 		} catch (ActionInterface $e) { // Re-dispatch if the exception implements ActionInterface (http://i.imgur.com/QKIfg.gif)
